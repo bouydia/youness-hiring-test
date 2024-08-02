@@ -21,16 +21,16 @@ export default function Home() {
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Tabs defaultValue="writer" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="writer" className="w-[400px]" aria-label="Tabs group">
+        <TabsList className="grid w-full grid-cols-2" aria-label="Tabs buttons">
           <TabsTrigger value="writer">Writer</TabsTrigger>
           <TabsTrigger value="publisher">Publisher</TabsTrigger>
         </TabsList>
         <TabsContent value="writer">
-          <CustomCard type='writer' />
+          <CustomCard type="writer" />
         </TabsContent>
         <TabsContent value="publisher">
-          <CustomCard type="publisher"/> 
+          <CustomCard type="publisher" />
         </TabsContent>
       </Tabs>
     </main>

@@ -44,7 +44,7 @@ type CustomCardProp= {
               value={text}
               onChange={ev => setText(ev.target.value)}
             />
-            <Button onClick={saveText}>Save changes</Button>
+            <Button aria-label="Save changes" onClick={saveText}>Save changes</Button>
           </div>
         )}
 
