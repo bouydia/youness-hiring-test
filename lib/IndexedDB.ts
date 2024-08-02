@@ -1,4 +1,3 @@
-// db.ts
 import Dexie, { type EntityTable } from 'dexie'
 
 interface TextContent {

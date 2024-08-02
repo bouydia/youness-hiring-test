@@ -11,7 +11,7 @@ import {
 import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
 import { Button } from './ui/button'
-import TextList from './ui/TextList'
+import TextList from './TextList'
 import { addTextContent } from '@/actions/addTextContent'
 
 type CustomCardProp= {
@@ -37,13 +37,14 @@ type CustomCardProp= {
       </CardHeader>
       <CardContent className="space-y-2">
         {type === 'writer' && (
-          <div className="space-y-1">
+          <div className="space-y-4">
             <Label htmlFor="name">{status}</Label>
             <Textarea
               placeholder="Type your text content."
               value={text}
               onChange={ev => setText(ev.target.value)}
             />
+            <Button onClick={saveText}>Save changes</Button>
           </div>
         )}
 
@@ -51,11 +52,6 @@ type CustomCardProp= {
           <TextList />
         </div>
       </CardContent>
-      {type === 'writer' && (
-        <CardFooter>
-          <Button onClick={saveText}>Save changes</Button>
-        </CardFooter>
-      )}
     </Card>
   )
 }

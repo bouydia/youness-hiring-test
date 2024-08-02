@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '@/db';
+import { db } from '@/lib/IndexedDB';
 
 const TextList = () => {
   //fetch data from localdb (IndexedDB)

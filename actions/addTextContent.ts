@@ -1,4 +1,4 @@
-import { db } from '@/db'
+import { db } from '@/lib/IndexedDB'
 
 
 export async function addTextContent(text:string, setStatus:any, setText:any) {

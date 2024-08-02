@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
-import TextList from "@/components/ui/TextList"
-import { db } from "@/db"
+import TextList from "@/components/TextList"
+import { db } from "@/lib/IndexedDB"
 
 
 
