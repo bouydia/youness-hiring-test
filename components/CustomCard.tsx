@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useState } from 'react'
 import {
   Card,
@@ -12,20 +12,23 @@ import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
 import { Button } from './ui/button'
 import TextList from './TextList'
-import { addTextContent } from '@/actions/addTextContent'
+import { addTextContent } from '@/lib/actions/TextContent.action'
 
-type CustomCardProp= {
-    type:"writer" | "publisher"
+type CustomCardProp = {
+  type: 'writer' | 'publisher'
 }
 
- function  CustomCard ({ type }: CustomCardProp) {
+function CustomCard({ type }: CustomCardProp) {
   const [text, setText] = useState('')
   const [status, setStatus] = useState('')
-  
+
   const saveText = async () => {
-    await addTextContent(text, setStatus, setText)
+    //check if the input is empty
+    text === ''
+      ? alert("Text is required'")
+      : await addTextContent(text, setStatus, setText)
   }
-  
+
   return (
     <Card>
       <CardHeader>
@@ -44,7 +47,9 @@ type CustomCardProp= {
               value={text}
               onChange={ev => setText(ev.target.value)}
             />
-            <Button aria-label="Save changes" onClick={saveText}>Save changes</Button>
+            <Button aria-label="Save changes" onClick={saveText}>
+              Save changes
+            </Button>
           </div>
         )}
 

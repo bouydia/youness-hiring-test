@@ -16,9 +16,6 @@ import TextCard from '@/components/TextList'
 
 
 export default function Home() {
-  
-  
-  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Tabs defaultValue="writer" className="w-[400px]" aria-label="Tabs group">
