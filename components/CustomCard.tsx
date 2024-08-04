@@ -12,8 +12,8 @@ import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
 import { Button } from './ui/button'
 import TextList from './TextList'
-import { decrypteData } from '@/lib/hashing'
 
+import { decrypteData } from '@/lib/hashing'
 import { encrypteData } from '@/lib/hashing'
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
 
@@ -41,8 +41,11 @@ function CustomCard({ type }: CustomCardProp) {
    } 
 
   const saveText = async () => {
+     await addText(text)
+     setText('')
+     loadTexts()
     //check if the input is empty
-    if (text === '') {
+    /* if (text === '') {
       alert("Text is required'")
     } else {
       try {
@@ -51,13 +54,13 @@ function CustomCard({ type }: CustomCardProp) {
 
         // Add the new text to the db!
         await addText(text)
-       // loadTexts()
+        loadTexts()
         setStatus(`Text Content ${text} successfully added`)
         setText('')
       } catch (error) {
         setStatus(`Failed to add ${text}: ${error}`)
       }
-   }
+   } */
      
   }
 
