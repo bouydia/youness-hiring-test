@@ -29,31 +29,29 @@ function CustomCard({ type }: CustomCardProp) {
   const [text, setText] = useState('')
   const [textsList, setTextsList] = useState<TextItem[]>([])
   const [status, setStatus] = useState('')
-  
-   useEffect(() => {
-     loadTexts()
-   }, [])
 
-   async function loadTexts() {
-      const allTexts = await getAllTexts()
-      setTextsList(allTexts)
-   } 
+  useEffect(() => {
+    loadTexts()
+  }, [])
+
+  async function loadTexts() {
+    const allTexts = await getAllTexts()
+    setTextsList(allTexts)
+  }
 
   const saveText = async () => {
-
-        
-        try {
-           await addText(text)
-           setText('')
-           setStatus(`Text Content ${text} successfully added`)
-           loadTexts()
-        } catch (error) {
-                     setStatus(`Fail to add  ${text} !!!`)
-
-        }
-       
-    
-     
+    try {
+      if (text === "") {
+        setStatus(`Fill the text is Required`)
+      } else {
+        await addText(text)
+        setText('')
+        setStatus(`Text Content ${text} successfully added`)
+        loadTexts()
+      }
+    } catch (error) {
+      setStatus(`Fail to add  ${text} !!!`)
+    }
   }
 
   return (
