@@ -46,13 +46,13 @@ function CustomCard({ type }: CustomCardProp) {
       } else {
         await addText(text)
         setText('')
-        setStatus(`Text Content ${text} successfully added`)
+        setStatus(`Text Content added successfully `)
         setError('')
         loadTexts()
       }
     } catch (error) {
         setStatus('')
-        setError(`Faild to add  ${text} !!!`)
+        setError(`Faild to add Text Content  !!!`)
     }
   }
 
