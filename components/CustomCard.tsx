@@ -42,7 +42,7 @@ function CustomCard({ type }: CustomCardProp) {
   const saveText = async () => {
 
         
-         await addText(encrypteData(text))
+         await addText(text)
          setText('')
          setStatus(`Text Content ${text} successfully added`)
          loadTexts()
@@ -77,7 +77,7 @@ function CustomCard({ type }: CustomCardProp) {
 
         <div>
           {textsList.map((item, i) => (
-            <TextList key={i} text={decrypteData(item.text)} />
+            <TextList key={i} text={item.text} />
           ))}
         </div>
       </CardContent>
