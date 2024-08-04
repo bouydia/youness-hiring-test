@@ -42,10 +42,15 @@ function CustomCard({ type }: CustomCardProp) {
   const saveText = async () => {
 
         
-         await addText(text)
-         setText('')
-         setStatus(`Text Content ${text} successfully added`)
-         loadTexts()
+        try {
+           await addText(text)
+           setText('')
+           setStatus(`Text Content ${text} successfully added`)
+           loadTexts()
+        } catch (error) {
+                     setStatus(`Fail to add  ${text} !!!`)
+
+        }
        
     
      
