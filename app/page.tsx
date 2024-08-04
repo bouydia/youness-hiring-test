@@ -1,3 +1,4 @@
+"use client"
 import CustomCard from '@/components/CustomCard'
 import { Button } from '@/components/ui/button'
 import {

@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { openDB } from 'idb'
-import { initDB } from '@/lib/dbConfig'
+
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
 type TextItem = {
   id?: number
