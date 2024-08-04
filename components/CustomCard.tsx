@@ -51,7 +51,7 @@ function CustomCard({ type }: CustomCardProp) {
 
         // Add the new text to the db!
         await addText(text)
-        loadTexts()
+       // loadTexts()
         setStatus(`Text Content ${text} successfully added`)
         setText('')
       } catch (error) {
