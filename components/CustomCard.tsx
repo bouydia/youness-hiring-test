@@ -40,10 +40,7 @@ function CustomCard({ type }: CustomCardProp) {
    } 
 
   const saveText = async () => {
-    if (text === '') {
-      alert("Text is required'")
-      return
-    }
+
     try {
         
          await addText(encrypteData(text))
