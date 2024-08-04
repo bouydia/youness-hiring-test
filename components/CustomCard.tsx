@@ -50,7 +50,7 @@ function CustomCard({ type }: CustomCardProp) {
         const encryptedText = encrypteData(text)
 
         // Add the new text to the db!
-        await addText(encryptedText)
+        await addText(text)
         loadTexts()
         setStatus(`Text Content ${text} successfully added`)
         setText('')
@@ -94,7 +94,7 @@ function CustomCard({ type }: CustomCardProp) {
               <p className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
                 {
                   //decrypt the text to be readable
-                  decrypteData(item.text)
+                  item.text
                 }
               </p>
             </div>
