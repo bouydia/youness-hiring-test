@@ -41,9 +41,16 @@ function CustomCard({ type }: CustomCardProp) {
    } 
 
   const saveText = async () => {
-     await addText(text)
-     setText('')
-     loadTexts()
+     try {
+      await addText(text)
+      setText('')
+      setStatus(`Text Content ${text} successfully added`)
+
+      loadTexts()
+     } catch (error) {
+      console.log(error);
+      
+     }
     //check if the input is empty
     /* if (text === '') {
       alert("Text is required'")
@@ -55,7 +62,6 @@ function CustomCard({ type }: CustomCardProp) {
         // Add the new text to the db!
         await addText(text)
         loadTexts()
-        setStatus(`Text Content ${text} successfully added`)
         setText('')
       } catch (error) {
         setStatus(`Failed to add ${text}: ${error}`)
