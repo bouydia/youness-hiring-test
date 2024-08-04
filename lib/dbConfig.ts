@@ -1,6 +1,6 @@
 import { openDB } from 'idb'
 
-const dbName = 'MyAppDatabase'
+const dbName = 'HiringDB'
 const storeName = 'textStore'
 
 async function initDB() {

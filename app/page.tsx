@@ -13,9 +13,10 @@ import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import TextCard from '@/components/TextList'
+import { getAllTexts } from '@/lib/actions/textStore.action'
 
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Tabs defaultValue="writer" className="w-[400px]" aria-label="Tabs group">
@@ -30,6 +31,8 @@ export default function Home() {
           <CustomCard type="publisher" />
         </TabsContent>
       </Tabs>
+
+      
     </main>
   )
 }

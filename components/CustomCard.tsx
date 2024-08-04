@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -12,17 +12,33 @@ import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
 import { Button } from './ui/button'
 import TextList from './TextList'
-import { addTextContent } from '@/lib/actions/TextContent.action'
-import { db } from '@/lib/IndexedDB'
+import { decrypteData } from '@/lib/hashing'
+
 import { encrypteData } from '@/lib/hashing'
+import { addText, getAllTexts } from '@/lib/actions/textStore.action'
 
 type CustomCardProp = {
   type: 'writer' | 'publisher'
 }
+type TextItem = {
+  id?: number
+  text: string
+  timestamp: Date
+}
 
 function CustomCard({ type }: CustomCardProp) {
   const [text, setText] = useState('')
+  const [textsList, setTextsList] = useState<TextItem[]>([])
   const [status, setStatus] = useState('')
+  
+   useEffect(() => {
+     loadTexts()
+   }, [])
+
+   async function loadTexts() {
+      const allTexts = await getAllTexts()
+      setTextsList(allTexts)
+   } 
 
   const saveText = async () => {
     //check if the input is empty
@@ -34,10 +50,9 @@ function CustomCard({ type }: CustomCardProp) {
         const encryptedText = encrypteData(text)
 
         // Add the new text to the db!
-        const id = await db.textContents.add({
-          text: encryptedText,
-        })
-        setStatus(`Text Content ${text} successfully added. Got id ${id}`)
+        await addText(encryptedText)
+        loadTexts()
+        setStatus(`Text Content ${text} successfully added`)
         setText('')
       } catch (error) {
         setStatus(`Failed to add ${text}: ${error}`)
@@ -71,7 +86,19 @@ function CustomCard({ type }: CustomCardProp) {
         )}
 
         <div>
-          <TextList />
+          {textsList.map((item, i) => (
+            <div
+              key={i}
+              className="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700"
+            >
+              <p className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
+                {
+                  //decrypt the text to be readable
+                  decrypteData(item.text)
+                }
+              </p>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>
