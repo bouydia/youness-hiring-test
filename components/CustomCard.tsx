@@ -13,6 +13,8 @@ import { Label } from './ui/label'
 import { Button } from './ui/button'
 import TextList from './TextList'
 import { addTextContent } from '@/lib/actions/TextContent.action'
+import { db } from '@/lib/IndexedDB'
+import { encrypteData } from '@/lib/hashing'
 
 type CustomCardProp = {
   type: 'writer' | 'publisher'
@@ -24,9 +26,24 @@ function CustomCard({ type }: CustomCardProp) {
 
   const saveText = async () => {
     //check if the input is empty
-    text === ''
-      ? alert("Text is required'")
-      : await addTextContent(text, setStatus, setText)
+    if (text === '') {
+      alert("Text is required'")
+    } else {
+      try {
+        //encrypt the text first
+        const encryptedText = encrypteData(text)
+
+        // Add the new text to the db!
+        const id = await db.textContents.add({
+          text: encryptedText,
+        })
+        setStatus(`Text Content ${text} successfully added. Got id ${id}`)
+        setText('')
+      } catch (error) {
+        setStatus(`Failed to add ${text}: ${error}`)
+      }
+   }
+     
   }
 
   return (
