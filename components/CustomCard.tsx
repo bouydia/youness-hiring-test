@@ -40,18 +40,20 @@ function CustomCard({ type }: CustomCardProp) {
    } 
 
   const saveText = async () => {
+    if (text === '') {
+      alert("Text is required'")
+      return
+    }
     try {
-       if (text === '') {
-         alert("Text is required'")
-       } else {
+        
          await addText(encrypteData(text))
          setText('')
          setStatus(`Text Content ${text} successfully added`)
-
          loadTexts()
-       } 
+       
      } catch (error) {
       console.log(error);
+      setStatus(`Fail to add Content ${text}`)
      }
     
      
