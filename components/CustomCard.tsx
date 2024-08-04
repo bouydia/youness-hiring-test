@@ -12,8 +12,6 @@ import { Label } from './ui/label'
 import { Button } from './ui/button'
 import TextList from './TextList'
 
-import { decrypteData } from '@/lib/hashing'
-import { encrypteData } from '@/lib/hashing'
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
 
 type CustomCardProp = {
@@ -29,6 +27,7 @@ function CustomCard({ type }: CustomCardProp) {
   const [text, setText] = useState('')
   const [textsList, setTextsList] = useState<TextItem[]>([])
   const [status, setStatus] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     loadTexts()
@@ -42,15 +41,18 @@ function CustomCard({ type }: CustomCardProp) {
   const saveText = async () => {
     try {
       if (text === "") {
-        setStatus(`Fill the text is Required`)
+        setStatus("")
+        setError(`text is a required field`)
       } else {
         await addText(text)
         setText('')
         setStatus(`Text Content ${text} successfully added`)
+        setError('')
         loadTexts()
       }
     } catch (error) {
-      setStatus(`Fail to add  ${text} !!!`)
+        setStatus('')
+        setError(`Faild to add  ${text} !!!`)
     }
   }
 
@@ -66,7 +68,12 @@ function CustomCard({ type }: CustomCardProp) {
       <CardContent className="space-y-2">
         {type === 'writer' && (
           <div className="space-y-4">
-            <Label htmlFor="name">{status}</Label>
+            {status && <Label htmlFor="name" className='text-green-500'>{status}</Label>}
+            {error && (
+              <Label htmlFor="name" className="text-red-500">
+                {error}
+              </Label>
+            )}
             <Textarea
               placeholder="Type your text content."
               value={text}
