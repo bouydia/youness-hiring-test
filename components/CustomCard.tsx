@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -41,32 +40,20 @@ function CustomCard({ type }: CustomCardProp) {
    } 
 
   const saveText = async () => {
-     try {
-      await addText(text)
-      setText('')
-      setStatus(`Text Content ${text} successfully added`)
+    try {
+       if (text === '') {
+         alert("Text is required'")
+       } else {
+         await addText(encrypteData(text))
+         setText('')
+         setStatus(`Text Content ${text} successfully added`)
 
-      loadTexts()
+         loadTexts()
+       } 
      } catch (error) {
       console.log(error);
-      
      }
-    //check if the input is empty
-    /* if (text === '') {
-      alert("Text is required'")
-    } else {
-      try {
-        //encrypt the text first
-        const encryptedText = encrypteData(text)
-
-        // Add the new text to the db!
-        await addText(text)
-        loadTexts()
-        setText('')
-      } catch (error) {
-        setStatus(`Failed to add ${text}: ${error}`)
-      }
-   } */
+    
      
   }
 
@@ -96,17 +83,7 @@ function CustomCard({ type }: CustomCardProp) {
 
         <div>
           {textsList.map((item, i) => (
-            <div
-              key={i}
-              className="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700"
-            >
-              <p className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">
-                {
-                  //decrypt the text to be readable
-                  item.text
-                }
-              </p>
-            </div>
+            <TextList key={i} text={decrypteData(item.text)} />
           ))}
         </div>
       </CardContent>
