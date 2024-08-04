@@ -10,9 +10,11 @@ import {
 import { Textarea } from './ui/textarea'
 import { Label } from './ui/label'
 import { Button } from './ui/button'
-import TextList from './TextList'
+import TextCard from './TextCard'
 
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
+import { ScrollArea } from './ui/scroll-area'
+import clsx from 'clsx'
 
 type CustomCardProp = {
   type: 'writer' | 'publisher'
@@ -40,8 +42,8 @@ function CustomCard({ type }: CustomCardProp) {
 
   const saveText = async () => {
     try {
-      if (text === "") {
-        setStatus("")
+      if (text === '') {
+        setStatus('')
         setError(`text is a required field`)
       } else {
         await addText(text)
@@ -51,8 +53,8 @@ function CustomCard({ type }: CustomCardProp) {
         loadTexts()
       }
     } catch (error) {
-        setStatus('')
-        setError(`Faild to add Text Content  !!!`)
+      setStatus('')
+      setError(`Faild to add Text Content  !!!`)
     }
   }
 
@@ -68,7 +70,11 @@ function CustomCard({ type }: CustomCardProp) {
       <CardContent className="space-y-2">
         {type === 'writer' && (
           <div className="space-y-4">
-            {status && <Label htmlFor="name" className='text-green-500'>{status}</Label>}
+            {status && (
+              <Label htmlFor="name" className="text-green-500">
+                {status}
+              </Label>
+            )}
             {error && (
               <Label htmlFor="name" className="text-red-500">
                 {error}
@@ -86,9 +92,15 @@ function CustomCard({ type }: CustomCardProp) {
         )}
 
         <div>
-          {textsList.map((item, i) => (
-            <TextList key={i} text={item.text} />
-          ))}
+          <div
+            className={
+              ' h-full w-full rounded-md border p-4  flex gap-12 flex-row justify-center  flex-wrap'
+            }
+          >
+            {textsList.map((item, i) => (
+              <TextCard key={i} text={item.text} uuid={item.id} />
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>
