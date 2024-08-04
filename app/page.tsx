@@ -1,21 +1,5 @@
-
-import CustomCard from '@/components/CustomCard'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import CustomContent from '@/components/CustomContent'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
-import TextCard from '@/components/TextCard'
-import { getAllTexts } from '@/lib/actions/textStore.action'
-
 
 export default async function Home() {
   return (
@@ -26,10 +10,10 @@ export default async function Home() {
           <TabsTrigger value="publisher">Publisher</TabsTrigger>
         </TabsList>
         <TabsContent value="writer">
-          <CustomCard type="writer" />
+          <CustomContent type="writer" />
         </TabsContent>
         <TabsContent value="publisher">
-          <CustomCard type="publisher" />
+          <CustomContent type="publisher" />
         </TabsContent>
       </Tabs>
 

@@ -2,11 +2,11 @@ import CryptoJS from 'crypto-js'
 
 const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY!
 
-const encrypteData = (data: string) => {  
+const encryptData = (data: string) => {  
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString()
 }
 
-const decrypteData = (data: string) => {
+const decryptData = (data: string) => {
   try {
     const bytes = CryptoJS.AES.decrypt(data, secretKey)
     const decryptedString = bytes.toString(CryptoJS.enc.Utf8)
@@ -19,4 +19,4 @@ const decrypteData = (data: string) => {
 }
 
 
-export { encrypteData, decrypteData }
+export { encryptData, decryptData }

@@ -13,11 +13,9 @@ import { Button } from './ui/button'
 import TextCard from './TextCard'
 
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
-import { ScrollArea } from './ui/scroll-area'
-import clsx from 'clsx'
-import { decrypteData, encrypteData } from '@/lib/hashing'
+import { decryptData, encryptData } from '@/lib/hashing'
 
-type CustomCardProp = {
+type CustomContentProp = {
   type: 'writer' | 'publisher'
 }
 type TextItem = {
@@ -26,7 +24,7 @@ type TextItem = {
   timestamp: Date
 }
 
-function CustomCard({ type }: CustomCardProp) {
+function CustomContent({ type }: CustomContentProp) {
   const [text, setText] = useState('')
   const [textsList, setTextsList] = useState<TextItem[]>([])
   const [status, setStatus] = useState('')
@@ -47,7 +45,7 @@ function CustomCard({ type }: CustomCardProp) {
         setStatus('')
         setError(`text is a required field`)
       } else {
-        await addText(encrypteData(text))
+        await addText(text)
         setText('')
         setStatus(`Text Content added successfully `)
         setError('')
@@ -99,7 +97,7 @@ function CustomCard({ type }: CustomCardProp) {
             }
           >
             {textsList.map((item, i) => (
-              <TextCard key={i} text={decrypteData(item.text)} uuid={item.id} />
+              <TextCard key={i} text={item.text} uuid={item.id} />
             ))}
           </div>
         </div>
@@ -108,4 +106,4 @@ function CustomCard({ type }: CustomCardProp) {
   )
 }
 
-export default CustomCard
+export default CustomContent
