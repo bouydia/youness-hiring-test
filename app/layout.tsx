@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {children}
-        <Script id="security-script">
+       {/*  <Script id="security-script">
           {`
             // Disable right-click
             document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -38,7 +38,7 @@ export default function RootLayout({
             // Disable copying
             document.addEventListener('copy', (e) => e.preventDefault());
           `}
-        </Script> 
+        </Script> */} 
       </body>
     </html>
   )

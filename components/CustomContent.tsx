@@ -26,28 +26,28 @@ type TextItem = {
 }
 
 function CustomContent({ type }: CustomContentProp) {
-  const [text, setText] = useState<string>('')
-  const [status, setStatus] = useState<string>('')
-  const [addError, setAddError] = useState<string>('')
-  const { textsList, isLoading, error, loadTexts } = useTexts() // Use the custom hook
+ const [text, setText] = useState<string>('')
+ const [status, setStatus] = useState<string>('')
+ const [addError, setAddError] = useState<string>('')
+ const { textsList, isLoading, error, loadTexts } = useTexts() // Use the custom hook
 
-  const saveText = async (): Promise<void> => {
-    try {
-      if (text === '') {
-        setStatus('')
-        setAddError(`text is a required field`)
-      } else {
-        await addText(text)
-        setText('')
-        setStatus(`Text Content added successfully `)
-        setAddError('')
-        loadTexts() // Reload texts after adding
-      }
-    } catch (error) {
-      setStatus('')
-      setAddError(`Failed to add Text Content!`)
-    }
-  }
+ const saveText = async (): Promise<void> => {
+   try {
+     if (text === '') {
+       setStatus('')
+       setAddError(`text is a required field`)
+     } else {
+       await addText(text)
+       setText('')
+       setStatus(`Text Content added successfully `)
+       setAddError('')
+       loadTexts() // Reload texts after adding
+     }
+   } catch (error) {
+     setStatus('')
+     setAddError(`Failed to add Text Content!`)
+   }
+ }
   return (
     <Card>
       <CardHeader>
@@ -87,17 +87,13 @@ function CustomContent({ type }: CustomContentProp) {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <div
-              className={
-                ' h-full w-full rounded-md border p-4  flex gap-12 flex-row justify-center  flex-wrap'
-              }
-            >
+            textsList.length > 0 ? (
               <div className="h-full w-full rounded-md border p-4 flex gap-12 flex-row justify-center flex-wrap">
                 {textsList.map((item: TextItem, i: number) => (
                   <TextCard key={i} text={item.text} uuid={item.id} />
                 ))}
               </div>
-            </div>
+            ):"No Content added yet"
           )}
         </div>
       </CardContent>
