@@ -1,8 +1,9 @@
+import { storeName } from '@/constants'
 import { openDB } from 'idb'
 
 const dbName = 'HiringDB'
-const storeName = 'textStore'
 
+//setup indexedDB databse
 async function initDB() {
   return openDB(dbName, 1, {
     upgrade(db) {

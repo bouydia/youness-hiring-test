@@ -1,7 +1,7 @@
+import { storeName } from '@/constants'
 import { initDB } from '../dbConfig'
 
-const storeName = 'textStore'
-
+//add text content to the DB
 export async function addText(text: string) {
   const db = await initDB()
   const tx = db.transaction(storeName, 'readwrite')
@@ -10,6 +10,7 @@ export async function addText(text: string) {
   await tx.done
 }
 
+// get all text content from DB
 export async function getAllTexts() {
   const db = await initDB()
   return db.getAll(storeName)
