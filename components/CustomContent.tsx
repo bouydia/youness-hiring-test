@@ -14,6 +14,7 @@ import TextCard from './TextCard'
 
 import { addText, getAllTexts } from '@/lib/actions/textStore.action'
 import { decryptData, encryptData } from '@/lib/hashing'
+import { useTexts } from '@/hooks/useTexts '
 
 type CustomContentProp = {
   type: 'writer' | 'publisher'
@@ -25,38 +26,28 @@ type TextItem = {
 }
 
 function CustomContent({ type }: CustomContentProp) {
-  const [text, setText] = useState('')
-  const [textsList, setTextsList] = useState<TextItem[]>([])
-  const [status, setStatus] = useState('')
-  const [error, setError] = useState('')
+ const [text, setText] = useState<string>('')
+ const [status, setStatus] = useState<string>('')
+ const [addError, setAddError] = useState<string>('')
+ const { textsList, isLoading, error, loadTexts } = useTexts() // Use the custom hook
 
-  useEffect(() => {
-    loadTexts()
-  }, [])
-
-  async function loadTexts() {
-    const allTexts = await getAllTexts()
-    setTextsList(allTexts)
-  }
-
-  const saveText = async () => {
-    try {
-      if (text === '') {
-        setStatus('')
-        setError(`text is a required field`)
-      } else {
-        await addText(text)
-        setText('')
-        setStatus(`Text Content added successfully `)
-        setError('')
-        loadTexts()
-      }
-    } catch (error) {
-      setStatus('')
-      setError(`Faild to add Text Content  !!!`)
-    }
-  }
-
+ const saveText = async (): Promise<void> => {
+   try {
+     if (text === '') {
+       setStatus('')
+       setAddError(`text is a required field`)
+     } else {
+       await addText(text)
+       setText('')
+       setStatus(`Text Content added successfully `)
+       setAddError('')
+       loadTexts() // Reload texts after adding
+     }
+   } catch (error) {
+     setStatus('')
+     setAddError(`Failed to add Text Content!`)
+   }
+ }
   return (
     <Card>
       <CardHeader>
@@ -74,9 +65,9 @@ function CustomContent({ type }: CustomContentProp) {
                 {status}
               </Label>
             )}
-            {error && (
+            {addError && (
               <Label htmlFor="name" className="text-red-500">
-                {error}
+                {addError}
               </Label>
             )}
             <Textarea
@@ -96,9 +87,17 @@ function CustomContent({ type }: CustomContentProp) {
               ' h-full w-full rounded-md border p-4  flex gap-12 flex-row justify-center  flex-wrap'
             }
           >
-            {textsList.map((item, i) => (
-              <TextCard key={i} text={item.text} uuid={item.id} />
-            ))}
+            {isLoading ? (
+              <p>Loading texts...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : (
+              <div className="h-full w-full rounded-md border p-4 flex gap-12 flex-row justify-center flex-wrap">
+                {textsList.map((item: TextItem, i: number) => (
+                  <TextCard key={i} text={item.text} uuid={item.id} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </CardContent>
