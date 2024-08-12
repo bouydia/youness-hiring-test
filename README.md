@@ -30,7 +30,7 @@ This project is a Next.js application that uses Tailwind CSS and shadcn for UI c
 1. Clone the repository:
      ```sh
    git clone https://github.com/bouydia/youness-hiring-test
-   cd your-project-name
+   cd youness-hiring-test
     ```
 
 2. Install dependencies:
